@@ -12,12 +12,12 @@
     <p>СКО: {{ lineal_s|round(3) }}</p>
     <table>
         <thead>
-            <tr>
-                <th>X</th>
-                <th>Y</th>
-                <th>φ(x)</th>
-                <th>eps</th>
-            </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>φ(x)</th>
+            <th>eps</th>
+        </tr>
         </thead>
         {% for i in range(x|length) %}
             <tr>
@@ -35,12 +35,12 @@
     <p>СКО: {{ pol2_s|round(3) }}</p>
     <table>
         <thead>
-            <tr>
-                <th>X</th>
-                <th>Y</th>
-                <th>φ(x)</th>
-                <th>eps</th>
-            </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>φ(x)</th>
+            <th>eps</th>
+        </tr>
         </thead>
         {% for i in range(x|length) %}
             <tr>
@@ -58,12 +58,12 @@
     <p>СКО: {{ pol3_s|round(3) }}</p>
     <table>
         <thead>
-            <tr>
-                <th>X</th>
-                <th>Y</th>
-                <th>φ(x)</th>
-                <th>eps</th>
-            </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>φ(x)</th>
+            <th>eps</th>
+        </tr>
         </thead>
         {% for i in range(x|length) %}
             <tr>
@@ -81,12 +81,12 @@
     <p>СКО: {{ exp_s|round(3) }}</p>
     <table>
         <thead>
-            <tr>
-                <th>X</th>
-                <th>Y</th>
-                <th>φ(x)</th>
-                <th>eps</th>
-            </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>φ(x)</th>
+            <th>eps</th>
+        </tr>
         </thead>
         {% for i in range(x|length) %}
             <tr>
@@ -104,12 +104,12 @@
     <p>СКО: {{ log_s|round(3) }}</p>
     <table>
         <thead>
-            <tr>
-                <th>X</th>
-                <th>Y</th>
-                <th>φ(x)</th>
-                <th>eps</th>
-            </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>φ(x)</th>
+            <th>eps</th>
+        </tr>
         </thead>
         {% for i in range(x|length) %}
             <tr>
@@ -127,12 +127,12 @@
     <p>СКО: {{ pow_s|round(3) }}</p>
     <table>
         <thead>
-            <tr>
-                <th>X</th>
-                <th>Y</th>
-                <th>φ(x)</th>
-                <th>eps</th>
-            </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>φ(x)</th>
+            <th>eps</th>
+        </tr>
         </thead>
         {% for i in range(x|length) %}
             <tr>
@@ -144,5 +144,53 @@
         {% endfor %}
     </table>
 </div>
+<div id="calculator" style="width: 600px; height: 400px;"></div>
+<form method="post" action="{{ url_for('download_report') }}">
+    <input type="hidden" name="report_text" value="{% include 'report.html' %}">
+    <div class="form-block">
+        <button type="submit">Скачать отчет</button>
+    </div>
+</form>
+<script src="https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script>
+    var elt = document.getElementById('calculator');
+    var calculator = Desmos.GraphingCalculator(elt);
+    calculator.updateSettings({
+        keypad: false,
+        expressions: true,
+        expressionsCollapsed: true
+    });
+    window.onload = function () {
+        calculator.setExpression({id: 'lineal', latex: 'y={{ lineal_a|round(3) }}x + {{ lineal_b|round(3) }}'});
+        calculator.setExpression({
+            id: 'polinom2',
+            latex: 'y = {{ pol2_a|round(3) }} + {{ pol2_b|round(3) }}x + {{ pol2_c|round(3) }}x^2'
+        });
+        calculator.setExpression({
+            id: 'polinom3',
+            latex: 'y = {{ pol3_a|round(3) }} + {{ pol3_b|round(3) }}x + {{ pol3_c|round(3) }}x^2 + {{ pol3_d|round(3) }}x^3'
+        });
+        calculator.setExpression({id: 'exponential', latex: 'y = {{ exp_a|round(3) }} \\exp({{ exp_b|round(3) }}x)'});
+        calculator.setExpression({id: 'logarithmic', latex: 'y = {{ log_a|round(3) }} \\ln(x) + {{ log_b|round(3) }}'});
+        calculator.setExpression({
+            id: 'poweric',
+            latex: 'y = {{ pow_a|round(3) }} x^{{ '{' }} {{ pow_b|round(3) }} {{ '}' }}'
+        });
+        calculator.setExpression({
+            id: 'points',
+            type: 'table',
+            columns: [
+                {latex: 'x', values: {{ x|tojson }}},
+                {latex: 'y', values: {{ y|tojson }}}
+            ]
+        });
+        calculator.setMathBounds({
+            left: {{ desmos_left_view }},
+            right: {{ desmos_right_view }},
+            bottom: {{ desmos_down_view }},
+            top: {{ desmos_up_view }}
+        });
+    }
+</script>
 </body>
 </html>

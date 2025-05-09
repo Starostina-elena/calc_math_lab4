@@ -1,10 +1,22 @@
-from flask import Flask, render_template, request
+import io
+
+from flask import Flask, render_template, request, send_file
 from forms import InputForm
 
 from utils import lineal, polinom2, polinom3, exponential, logarithmic, poweric
 
 app = Flask(__name__)
 app.secret_key = 'fjJGKJGVkjgjkhvNBvJGGhbjhgb657g'
+
+
+@app.route('/download_report', methods=['POST'])
+def download_report():
+    report_text = request.form['report_text']
+    report = io.StringIO(report_text)
+    return send_file(io.BytesIO(report.getvalue().encode('utf-8')),
+                     mimetype='text/plain',
+                     as_attachment=True,
+                     download_name='report.txt')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -41,6 +53,9 @@ def main():
         exp_a, exp_b, exp_s, exp_f, exp_eps = exponential.exponential(x, y)
         log_a, log_b, log_s, log_f, log_eps = logarithmic.logarithmic(x, y)
         pow_a, pow_b, pow_s, pow_f, pow_eps = poweric.poweric(x, y)
+        center_x = (max(x) + min(x)) / 2
+        center_y = (max(y) + min(y)) / 2
+        proportion = max(max(y) - min(y), max(x) - min(x))
         return render_template('result.html', x=x, y=y, lineal_a=lineal_a, lineal_b=lineal_b,
                                lineal_s=lineal_s, lineal_f=lineal_f, lineal_eps=lineal_eps,
                                pol2_a=pol2_a, pol2_b=pol2_b, pol2_c=pol2_c, pol2_s=pol2_s,
@@ -52,7 +67,11 @@ def main():
                                log_a=log_a, log_b=log_b, log_s=log_s, log_f=log_f,
                                log_eps=log_eps,
                                pow_a=pow_a, pow_b=pow_b, pow_s=pow_s, pow_f=pow_f,
-                               pow_eps=pow_eps)
+                               pow_eps=pow_eps,
+                               desmos_left_view = center_x - proportion,
+                               desmos_right_view = center_x + proportion,
+                               desmos_up_view = center_y + proportion,
+                               desmos_down_view = center_y - proportion)
     elif request.method == 'POST':
         return render_template('main.html', form=form, message='Некорректные данные')
 
