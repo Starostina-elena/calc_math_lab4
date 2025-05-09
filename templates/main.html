@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab4</title>
+    <script>
+        function replaceCommaWithDot(event) {
+            const input = event.target;
+            input.value = input.value.replace(',', '.');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', replaceCommaWithDot);
+            });
+        });
+
+        function addRow() {
+            const tableBody = document.querySelector('tbody');
+            const rowCount = tableBody.querySelectorAll('tr').length;
+
+            if (rowCount < 12) {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td><input type="text" name="rows-${rowCount}-x" required></td>
+                    <td><input type="text" name="rows-${rowCount}-y" required></td>
+                `;
+                tableBody.appendChild(newRow);
+            }
+        }
+
+        function deleteRow() {
+            const tableBody = document.querySelector('tbody');
+            const rowCount = tableBody.querySelectorAll('tr').length;
+            if (rowCount > 8) {
+                tableBody.lastElementChild.remove();
+            }
+        }
+    </script>
+</head>
+<body>
+<p>
+    {{ message }}
+</p>
+<form method="POST" action="/" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <table>
+        <thead>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in form.rows %}
+            <tr>
+                <td>{{ row.x }}</td>
+                <td>{{ row.y }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        {{ form.file.label }} {{ form.file }}
+    </div>
+    <div>
+        <button type="button" onclick="addRow()">Добавить строку</button>
+        <button type="button" onclick="deleteRow()">Удалить строку</button>
+        {{ form.submit }}
+    </div>
+</form>
+</body>
+</html>
