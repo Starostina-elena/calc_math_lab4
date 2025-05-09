@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from forms import InputForm
 
+from utils import lineal, polinom2, polinom3, exponential, logarithmic, poweric
 
 app = Flask(__name__)
 app.secret_key = 'fjJGKJGVkjgjkhvNBvJGGhbjhgb657g'
@@ -34,8 +35,24 @@ def main():
         for row in data:
             x.append(row['x'])
             y.append(row['y'])
-        a, b, S, eps = lineal(x, y)
-        return "Form submitted successfully!"
+        lineal_a, lineal_b, lineal_s, lineal_f, lineal_eps = lineal.lineal(x, y)
+        pol2_a, pol2_b, pol2_c, pol2_s, pol2_f, pol2_eps = polinom2.polinom2(x, y)
+        pol3_a, pol3_b, pol3_c, pol3_d, pol3_s, pol3_f, pol3_eps = polinom3.polinom3(x, y)
+        exp_a, exp_b, exp_s, exp_f, exp_eps = exponential.exponential(x, y)
+        log_a, log_b, log_s, log_f, log_eps = logarithmic.logarithmic(x, y)
+        pow_a, pow_b, pow_s, pow_f, pow_eps = poweric.poweric(x, y)
+        return render_template('result.html', x=x, y=y, lineal_a=lineal_a, lineal_b=lineal_b,
+                               lineal_s=lineal_s, lineal_f=lineal_f, lineal_eps=lineal_eps,
+                               pol2_a=pol2_a, pol2_b=pol2_b, pol2_c=pol2_c, pol2_s=pol2_s,
+                               pol2_f=pol2_f, pol2_eps=pol2_eps,
+                               pol3_a=pol3_a, pol3_b=pol3_b, pol3_c=pol3_c, pol3_d=pol3_d,
+                               pol3_s=pol3_s, pol3_f=pol3_f, pol3_eps=pol3_eps,
+                               exp_a=exp_a, exp_b=exp_b, exp_s=exp_s, exp_f=exp_f,
+                               exp_eps=exp_eps,
+                               log_a=log_a, log_b=log_b, log_s=log_s, log_f=log_f,
+                               log_eps=log_eps,
+                               pow_a=pow_a, pow_b=pow_b, pow_s=pow_s, pow_f=pow_f,
+                               pow_eps=pow_eps)
     elif request.method == 'POST':
         return render_template('main.html', form=form, message='Некорректные данные')
 

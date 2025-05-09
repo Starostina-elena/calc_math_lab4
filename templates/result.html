@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab4 - result</title>
+</head>
+<body>
+<button class="btn" onclick="location.href='/'">Назад</button>
+<div>
+    <h3>Линейная аппроксимация</h3>
+    <p>y = {{ lineal_a|round(3) }}x + {{ lineal_b|round(3) }}</p>
+    <p>СКО: {{ lineal_s|round(3) }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>φ(x)</th>
+                <th>eps</th>
+            </tr>
+        </thead>
+        {% for i in range(x|length) %}
+            <tr>
+                <td>{{ x[i]|round(3) }}</td>
+                <td>{{ y[i]|round(3) }}</td>
+                <td>{{ lineal_f[i]|round(3) }}</td>
+                <td>{{ lineal_eps[i]|round(3) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Полином 2-ой степени</h3>
+    <p>y = {{ pol2_a|round(3) }} + {{ pol2_b|round(3) }}x + {{ pol2_c|round(3) }}x^2</p>
+    <p>СКО: {{ pol2_s|round(3) }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>φ(x)</th>
+                <th>eps</th>
+            </tr>
+        </thead>
+        {% for i in range(x|length) %}
+            <tr>
+                <td>{{ x[i]|round(3) }}</td>
+                <td>{{ y[i]|round(3) }}</td>
+                <td>{{ pol2_f[i]|round(3) }}</td>
+                <td>{{ pol2_eps[i]|round(3) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Полином 3-ой степени</h3>
+    <p>y = {{ pol3_a|round(3) }} + {{ pol3_b|round(3) }}x + {{ pol3_c|round(3) }}x^2 + {{ pol3_d|round(3) }}x^3</p>
+    <p>СКО: {{ pol3_s|round(3) }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>φ(x)</th>
+                <th>eps</th>
+            </tr>
+        </thead>
+        {% for i in range(x|length) %}
+            <tr>
+                <td>{{ x[i]|round(3) }}</td>
+                <td>{{ y[i]|round(3) }}</td>
+                <td>{{ pol3_f[i]|round(3) }}</td>
+                <td>{{ pol3_eps[i]|round(3) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Экспоненциальная</h3>
+    <p>y = {{ exp_a|round(3) }} * exp({{ exp_b|round(3) }}x)</p>
+    <p>СКО: {{ exp_s|round(3) }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>φ(x)</th>
+                <th>eps</th>
+            </tr>
+        </thead>
+        {% for i in range(x|length) %}
+            <tr>
+                <td>{{ x[i]|round(3) }}</td>
+                <td>{{ y[i]|round(3) }}</td>
+                <td>{{ exp_f[i]|round(3) }}</td>
+                <td>{{ exp_eps[i]|round(3) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Логарифмическая</h3>
+    <p>y = {{ log_a|round(3) }} * ln(x) + {{ log_b|round(3) }}</p>
+    <p>СКО: {{ log_s|round(3) }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>φ(x)</th>
+                <th>eps</th>
+            </tr>
+        </thead>
+        {% for i in range(x|length) %}
+            <tr>
+                <td>{{ x[i]|round(3) }}</td>
+                <td>{{ y[i]|round(3) }}</td>
+                <td>{{ log_f[i]|round(3) }}</td>
+                <td>{{ log_eps[i]|round(3) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Степенная</h3>
+    <p>y = {{ pow_a|round(3) }} * x^{{ pow_b|round(3) }}</p>
+    <p>СКО: {{ pow_s|round(3) }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>φ(x)</th>
+                <th>eps</th>
+            </tr>
+        </thead>
+        {% for i in range(x|length) %}
+            <tr>
+                <td>{{ x[i]|round(3) }}</td>
+                <td>{{ y[i]|round(3) }}</td>
+                <td>{{ pow_f[i]|round(3) }}</td>
+                <td>{{ pow_eps[i]|round(3) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
