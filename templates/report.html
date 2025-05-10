@@ -1,6 +1,11 @@
+Наилучшая аппроксимация - {{ best_approximation }}
+
 Линейная аппроксимация
 y = {{ lineal_a|round(3) }}x + {{ lineal_b|round(3) }}
 СКО: {{ lineal_s|round(3) }}
+Коэффициент корреляции Пирсона: {{ lineal_r|round(3) }}
+Коэффициент детерминации: {{ lineal_R2|round(3) }}
+{% if lineal_R2 >= 0.95 %}(высокая точность аппроксимации){% elif lineal_R2 >= 0.75 %}(удовлетворительная аппроксимация){% elif lineal_R2 >= 0.5 %}(слабая аппроксимация){% else %}(точность аппроксимации недостаточна){% endif %}
 X   Y   φ(x)   eps
 {% for i in range(x|length) %}
 {{ x[i]|round(3) }} {{ y[i]|round(3) }} {{ lineal_f[i]|round(3) }} {{ lineal_eps[i]|round(3) }}
@@ -9,6 +14,7 @@ X   Y   φ(x)   eps
 Полином 2-ой степени
 y = {{ pol2_a|round(3) }} + {{ pol2_b|round(3) }}x + {{ pol2_c|round(3) }}x^2
 СКО: {{ pol2_s|round(3) }}
+Коэффициент детерминации: {{ pol2_R2|round(3) }} {% if pol2_R2 >= 0.95 %}(высокая точность аппроксимации){% elif pol2_R2 >= 0.75 %}(удовлетворительная аппроксимация){% elif pol2_R2 >= 0.5 %}(слабая аппроксимация){% else %}(точность аппроксимации недостаточна){% endif %}
 X   Y   φ(x)   eps
 {% for i in range(x|length) %}
 {{ x[i]|round(3) }} {{ y[i]|round(3) }} {{ pol2_f[i]|round(3) }} {{ pol2_eps[i]|round(3) }}
@@ -17,6 +23,7 @@ X   Y   φ(x)   eps
 Полином 3-ой степени
 y = {{ pol3_a|round(3) }} + {{ pol3_b|round(3) }}x + {{ pol3_c|round(3) }}x^2 + {{ pol3_d|round(3) }}x^3
 СКО: {{ pol3_s|round(3) }}
+Коэффициент детерминации: {{ pol3_R2|round(3) }} {% if pol3_R2 >= 0.95 %}(высокая точность аппроксимации){% elif pol3_R2 >= 0.75 %}(удовлетворительная аппроксимация){% elif pol3_R2 >= 0.5 %}(слабая аппроксимация){% else %}(точность аппроксимации недостаточна){% endif %}
 X   Y   φ(x)   eps
 {% for i in range(x|length) %}
 {{ x[i]|round(3) }} {{ y[i]|round(3) }} {{ pol3_f[i]|round(3) }} {{ pol3_eps[i]|round(3) }}
@@ -25,6 +32,7 @@ X   Y   φ(x)   eps
 Экспоненциальная
 y = {{ exp_a|round(3) }} * exp({{ exp_b|round(3) }}x)
 СКО: {{ exp_s|round(3) }}
+Коэффициент детерминации: {{ exp_R2|round(3) }} {% if exp_R2 >= 0.95 %}(высокая точность аппроксимации){% elif exp_R2 >= 0.75 %}(удовлетворительная аппроксимация){% elif exp_R2 >= 0.5 %}(слабая аппроксимация){% else %}(точность аппроксимации недостаточна){% endif %}
 X   Y   φ(x)   eps
 {% for i in range(x|length) %}
 {{ x[i]|round(3) }} {{ y[i]|round(3) }} {{ exp_f[i]|round(3) }} {{ exp_eps[i]|round(3) }}
@@ -33,6 +41,7 @@ X   Y   φ(x)   eps
 Логарифмическая
 y = {{ log_a|round(3) }} * ln(x) + {{ log_b|round(3) }}
 СКО: {{ log_s|round(3) }}
+Коэффициент детерминации: {{ log_R2|round(3) }} {% if log_R2 >= 0.95 %}(высокая точность аппроксимации){% elif log_R2 >= 0.75 %}(удовлетворительная аппроксимация){% elif log_R2 >= 0.5 %}(слабая аппроксимация){% else %}(точность аппроксимации недостаточна){% endif %}
 X   Y   φ(x)   eps
 {% for i in range(x|length) %}
 {{ x[i]|round(3) }} {{ y[i]|round(3) }} {{ log_f[i]|round(3) }} {{ log_eps[i]|round(3) }}
@@ -41,6 +50,7 @@ X   Y   φ(x)   eps
 Степенная
 y = {{ pow_a|round(3) }} * x^{{ pow_b|round(3) }}
 СКО: {{ pow_s|round(3) }}
+Коэффициент детерминации: {{ pow_R2|round(3) }} {% if pow_R2 >= 0.95 %}(высокая точность аппроксимации){% elif pow_R2 >= 0.75 %}(удовлетворительная аппроксимация){% elif pow_R2 >= 0.5 %}(слабая аппроксимация){% else %}(точность аппроксимации недостаточна){% endif %}
 X   Y   φ(x)   eps
 {% for i in range(x|length) %}
 {{ x[i]|round(3) }} {{ y[i]|round(3) }} {{ pow_f[i]|round(3) }} {{ pow_eps[i]|round(3) }}

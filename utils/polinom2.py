@@ -20,10 +20,20 @@ def polinom2(x, y):
     S = 0
     f = []
     eps = []
+    f_middle = 0
     for i in range(len(x)):
         fi = a + b * x[i] + c * x[i] ** 2
+        f_middle += fi
         f.append(fi)
         S += (fi - y[i]) ** 2
         eps.append(fi - y[i])
 
-    return a, b, c, (S / len(x)) ** 0.5, f, eps
+    f_middle /= len(x)
+    sum1 = 0
+    sum2 = 0
+    for i in range(len(x)):
+        sum1 += (y[i] - f[i]) ** 2
+        sum2 += (y[i] - f_middle) ** 2
+    R2 = 1 - sum1 / sum2
+
+    return a, b, c, R2, (S / len(x)) ** 0.5, f, eps
