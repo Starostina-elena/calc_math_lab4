@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab4</title>
+    <link rel="stylesheet" href="/static/main.css">
     <script>
         function replaceCommaWithDot(event) {
             const input = event.target;
@@ -66,8 +67,8 @@
         {{ form.file.label }} {{ form.file }}
     </div>
     <div>
-        <button type="button" onclick="addRow()">Добавить строку</button>
-        <button type="button" onclick="deleteRow()">Удалить строку</button>
+        <button type="button" onclick="addRow()" class="btn">Добавить строку</button>
+        <button type="button" onclick="deleteRow()" class="btn">Удалить строку</button>
         {{ form.submit }}
     </div>
 </form>

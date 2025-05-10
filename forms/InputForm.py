@@ -16,7 +16,7 @@ class RowForm(FlaskForm):
 class InputForm(FlaskForm):
     rows = FieldList(FormField(RowForm), min_entries=8, max_entries=12)
     file = FileField('Или загрузите файл', validators=[FileAllowed(['txt'], 'txt files only')])
-    submit = SubmitField('Готово')
+    submit = SubmitField('Готово', render_kw={'class': 'btn'})
 
     def validate(self, *args, **kwargs):
         if self.file.data:

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lab4 - result</title>
+    <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
 <button class="btn" onclick="location.href='/'">Назад</button>
@@ -172,11 +173,11 @@
         {% endfor %}
     </table>
 </div>
-<div id="calculator" style="width: 600px; height: 400px;"></div>
+<div id="calculator" style="width: 600px; height: 600px;"></div>
 <form method="post" action="{{ url_for('download_report') }}">
     <input type="hidden" name="report_text" value="{% include 'report.html' %}">
     <div class="form-block">
-        <button type="submit">Скачать отчет</button>
+        <button type="submit" class="btn">Скачать отчет</button>
     </div>
 </form>
 <script src="https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
