@@ -173,7 +173,9 @@
         {% endfor %}
     </table>
 </div>
-<div id="calculator" style="width: 600px; height: 600px;"></div>
+<div id="calculator-wrapper">
+    <div id="calculator" style="width: 800px; height: 800px;"></div>
+</div>
 <form method="post" action="{{ url_for('download_report') }}">
     <input type="hidden" name="report_text" value="{% include 'report.html' %}">
     <div class="form-block">
