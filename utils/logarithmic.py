@@ -2,7 +2,7 @@ from utils.lineal import lineal
 from math import log, exp
 
 def logarithmic(x, y):
-    a, b, *args = lineal([log(i) for i in x], y)
+    b, a, *args = lineal([log(i) for i in x], y)
 
     S = 0
     f = []

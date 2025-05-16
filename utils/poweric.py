@@ -2,7 +2,7 @@ from math import log, exp
 from utils.lineal import lineal
 
 def poweric(x, y):
-    A, b, *args = lineal([log(i) for i in x], [log(i) for i in y])
+    b, A, *args = lineal([log(i) for i in x], [log(i) for i in y])
     a = exp(A)
 
     S = 0

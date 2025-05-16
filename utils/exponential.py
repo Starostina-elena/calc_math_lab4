@@ -2,7 +2,7 @@ from utils.lineal import lineal
 from math import log, exp
 
 def exponential(x, y):
-    A, b, *args = lineal(x, [log(i) for i in y])
+    b, A, *args = lineal(x, [log(i) for i in y])
     a = exp(A)
 
     S = 0

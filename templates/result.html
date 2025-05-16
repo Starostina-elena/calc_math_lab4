@@ -94,6 +94,9 @@
 </div>
 <div>
     <h3>Экспоненциальная</h3>
+    {% if exp_error %}
+<p>Неприменимо для указанных точек</p>
+{% else %}
     <p>y = {{ exp_a|round(3) }} * exp({{ exp_b|round(3) }}x)</p>
     <p>СКО: {{ exp_s|round(3) }}</p>
     <p>Коэффициент детерминации: {{ exp_R2|round(3) }}
@@ -118,9 +121,13 @@
             </tr>
         {% endfor %}
     </table>
+{% endif %}
 </div>
 <div>
-    <h3>Логарифмическая</h3>
+<h3>Логарифмическая</h3>
+{% if log_error %}
+<p>Неприменимо для указанных точек</p>
+{% else %}
     <p>y = {{ log_a|round(3) }} * ln(x) + {{ log_b|round(3) }}</p>
     <p>СКО: {{ log_s|round(3) }}</p>
     <p>Коэффициент детерминации: {{ log_R2|round(3) }}
@@ -145,9 +152,13 @@
             </tr>
         {% endfor %}
     </table>
+{% endif %}
 </div>
 <div>
     <h3>Степенная</h3>
+    {% if pow_error %}
+<p>Неприменимо для указанных точек</p>
+{% else %}
     <p>y = {{ pow_a|round(3) }} * x^{{ pow_b|round(3) }}</p>
     <p>СКО: {{ pow_s|round(3) }}</p>
     <p>Коэффициент детерминации: {{ pow_R2|round(3) }}
@@ -172,6 +183,7 @@
             </tr>
         {% endfor %}
     </table>
+{% endif %}
 </div>
 <div id="calculator-wrapper">
     <div id="calculator" style="width: 800px; height: 800px;"></div>
@@ -201,12 +213,15 @@
             id: 'polinom3',
             latex: 'y = {{ pol3_a|round(3) }} + {{ pol3_b|round(3) }}x + {{ pol3_c|round(3) }}x^2 + {{ pol3_d|round(3) }}x^3'
         });
-        calculator.setExpression({id: 'exponential', latex: 'y = {{ exp_a|round(3) }} \\exp({{ exp_b|round(3) }}x)'});
-        calculator.setExpression({id: 'logarithmic', latex: 'y = {{ log_a|round(3) }} \\ln(x) + {{ log_b|round(3) }}'});
-        calculator.setExpression({
-            id: 'poweric',
-            latex: 'y = {{ pow_a|round(3) }} x^{{ '{' }} {{ pow_b|round(3) }} {{ '}' }}'
-        });
+        {% if not exp_error %}
+            calculator.setExpression({id: 'exponential', latex: 'y = {{ exp_a|round(3) }} \\exp({{ exp_b|round(3) }}x)'});
+        {% endif %}
+        {% if not log_error %}
+            calculator.setExpression({id: 'logarithmic', latex: 'y = {{ log_a|round(3) }} \\ln(x) + {{ log_b|round(3) }}'});
+        {% endif %}
+        {% if not pow_error %}
+            calculator.setExpression({id: 'power', latex: 'y = {{ pow_a|round(3) }} x^{{ pow_b|round(3) }}'});
+        {% endif %}
         calculator.setExpression({
             id: 'points',
             type: 'table',
